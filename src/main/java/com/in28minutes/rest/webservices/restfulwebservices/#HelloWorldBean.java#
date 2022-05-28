@@ -1,0 +1,11 @@
+package com.in28minutes.rest.webservices.restfulwebservices;
+
+public class HelloWorldBean {
+    public HelloWorldBean(String hello_world) {
+
+    }
+
+    
+
+    
+}
