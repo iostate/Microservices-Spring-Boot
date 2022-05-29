@@ -24,15 +24,17 @@ public class UserDaoService {
 
     /**
      * Returns true if the User was added. False if not.
+     *
      * @param user User to be added to users.
      * @return boolean True if the User was added
      */
-     public boolean save(User user) {
+     public User save(User user) {
         // if the user has no id
         if (user.getId()==null) {
             user.setId(++usersCount);
         }
-        return users.add(user);
+         users.add(user);
+         return user;
      }
      public User findOne(int id) {
          for (User user:users) {
