@@ -15,7 +15,7 @@ public class UserResource {
     public UserDaoService service;
 
 
-    @GetMapping(path = "/users")
+    @GetMapping("/users")
     public List<User> retrieveAllUsers() {
         return service.findAll();
     }
@@ -24,15 +24,32 @@ public class UserResource {
 
     // GET /users/{id}
     // if users[id] == null then Throw 404
-    @GetMapping(path = "/users/{id}")
+    @GetMapping("/users/{id}")
     public User retrieveUser(@PathVariable int id) {
         User user = service.findOne(id);
         if (user == null) {
             throw new UserNotFoundException(String.format("User w/ ID #%d Was Not Found!", id) +
                     "\n" + "Please try searching for another User ID #");
         }
-        return service.findOne(id);
+        return user;
     }
+
+    /**
+     * A route that allows a user to be deleted with an ID.
+     * @param id The ID of the User to be deleted.
+     */
+    @DeleteMapping("/users/{id}")
+    public void deleteUser(@PathVariable int id) {
+        // DELETE
+        // /user/{id}
+        User user = service.deleteOne(id);
+        if (user == null) {
+            throw new UserNotFoundException(String.format("User w/ ID #%d Was Not Found!", id) +
+                    "\n" + "Please try searching for another User ID #");
+        }
+    }
+
+
 
     /**
      * Takes either an ID or a User.
@@ -88,21 +105,6 @@ public class UserResource {
         return ResponseEntity.created(location).build();
     }
 
-    /**
-     * A route that allows a user to be deleted with an ID.
-     * @param id The ID of the User to be deleted.
-     */
-    @DeleteMapping(path = "/users/{id}")
-    public void deleteUser(@RequestBody int id) {
-        // DELETE
-        // /user/{id}
-        User user = service.deleteOne(id);
 
-        if (user==null) {
-            throw new UserNotFoundException(String.format("User w/ ID #%d Was Not Found!", id) +
-                    "\n" + "Please try searching for another User ID #");
-        }
-
-    }
 
 }
