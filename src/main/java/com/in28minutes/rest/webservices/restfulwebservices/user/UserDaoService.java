@@ -3,6 +3,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 @Component
@@ -44,5 +45,38 @@ public class UserDaoService {
          }
          return null;
      }
+
+    /**
+     * Delete a user by ID.
+     *
+     * @param id User id that is to be removed.
+     * @return Boolean Returns true if user is found & deleted.
+     * Returns False if user is not found & not deleted.
+     */
+    public User deleteOne(int id) {
+        Iterator<User> iterator = users.iterator();
+        while (iterator.hasNext()) {
+            User user = iterator.next();
+            if (user.getId() == id) {
+                iterator.remove();
+                return user;
+            }
+        }
+        return null;
+    }
+
+
+//     public boolean deleteOne(int id) {
+//         User userToBeDeleted = findOne(id);
+//         for (User user:users) {
+//             if(user.getId()==userToBeDeleted.getId()) {
+//                 // returns true if the User is found
+//                 return users.remove(user.getId());
+//             }
+//         }
+//         // if the code reached here
+//         // the user was not found and so, deleteOne fails and returns false
+//         return false;
+//     }
 
 }
