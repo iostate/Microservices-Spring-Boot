@@ -1,5 +1,7 @@
 package com.in28minutes.rest.webservices.restfulwebservices.user;
 
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 public class User {
@@ -10,6 +12,11 @@ public class User {
     }
 
     private Integer id;
+    @Size(min=2)
+    private String name;
+    @Past
+    private Date birthDate;
+
 
     public Integer getId() {
         return id;
@@ -35,9 +42,6 @@ public class User {
         this.birthDate = birthDate;
     }
 
-    private String name;
-
-    private Date birthDate;
 
 
 

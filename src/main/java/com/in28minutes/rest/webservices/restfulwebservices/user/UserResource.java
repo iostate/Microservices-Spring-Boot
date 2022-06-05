@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -44,8 +45,7 @@ public class UserResource {
         // /user/{id}
         User user = service.deleteOne(id);
         if (user == null) {
-            throw new UserNotFoundException(String.format("User w/ ID #%d Was Not Found!", id) +
-                    "\n" + "Please try searching for another User ID #");
+            throw new UserNotFoundException(String.format("User w/ ID #%d Was Not Found! Please try searching for another User ID.", id));
         }
     }
 
@@ -91,7 +91,7 @@ public class UserResource {
      *             by itself.
      */
     @PostMapping("/users")
-    public ResponseEntity<Object> createUser(@RequestBody User user) {
+    public ResponseEntity<Object> createUser(@Valid @RequestBody User user) {
         User savedUser = service.save(user);
         // CREATED
         // /user/{id}       savedUser.getId()
